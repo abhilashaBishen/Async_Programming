@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: cursive;
+
+        }
+        .timer{
+            padding:15%;
+            text-align: center;
+        }
+
+        #button_container,
+        #time_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+
+        label {
+            color: white;
+        }
+
+        input {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            width: 180px;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100px;
+            height: 40px;
+            font-size: large;
+            font-weight: bold;
+            font-family: cursive;
+            color: white;
+        }
+
+        #start {
+            background-color: green;
+        }
+
+        #pause {
+            background-color: orange;
+        }
+
+        #reset {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="timer">
+      <h1>Timer</h1>
+    <div id="time_container">
+        
+        <label for="hour">Hour</label>
+        <input type="number" id="hour" placeholder="00">
+        <label for="minute">minute</label>
+        <input type="number" id="minute" placeholder="00">
+        <label for="second">second</label>
+        <input type="number" id="second" placeholder="00">
+    </div>
+    <hr>
+    <div id="button_container">
+        <button id="start">start</button>
+        <button id="pause">pause</button>
+        <button id="reset">reset</button>
+    </div>
+</div>
+</body>
+<script>
+    let start_button = document.getElementById('start');
+    let pause_button = document.getElementById('pause');
+    let reset_button = document.getElementById('reset');
+
+    let total_sec = 0;
+    let id1 = 0;
+    start_button.addEventListener('click', function () {
+        let hour_input = document.getElementById('hour').value;
+
+        let minute_input = document.getElementById('minute').value;
+
+        let sec_input = document.getElementById('second').value;
+
+        total_sec = hour_input * 3600 + minute_input * 60 + sec_input * 1;
+
+        if (id1 == 0) {
+            id1 = setInterval(function () {
+                if (total_sec > 0) {
+                    total_sec--;
+                    const hours = Math.floor(total_sec / 3600);
+                    let a = total_sec % 3600;
+                    const mins = Math.floor(a / 60);
+                    let b = a % 60;
+                    const secs = Math.floor(b);
+
+                    document.getElementById('second').value = secs;
+
+                    document.getElementById('minute').value = mins;
+
+                    document.getElementById('hour').value = hours;
+                }
+
+            }, 1000)
+        }
+
+
+    })
+    pause_button.addEventListener('click', function () {
+        clearInterval(id1);
+        id1 = 0;
+    })
+
+    reset_button.addEventListener('click', function () {
+        document.getElementById('second').value = 0;
+
+        document.getElementById('minute').value = 0;
+
+        document.getElementById('hour').value = 0;
+
+    })
+</script>
+
+</html>
